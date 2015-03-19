@@ -1,0 +1,18 @@
+To set SSH alert put the last line into /root/.bashrc file si if someone login via ssh, an emial notification will be sent to the email address.
+
+
+root@server [~]# cat .bashrc
+# .bashrc
+
+# User specific aliases and functions
+
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+        . /etc/bashrc
+fi
+echo 'ALERT - Root Shell Access (' `hostname` ') on:' `date` `who` | mail -s "Alert: Root Access from `who | cut -d"(" -f2 | cut -d")" -f1`" emailuser@domain.com
+echo 'ALERT - Root Shell Access (' `hostname` ') on:' `date` `who` >> /var/log/rootlogins
