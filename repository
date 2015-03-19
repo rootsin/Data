@@ -1,0 +1,18 @@
+Red Hat Enterprise Linux 5 / i386:
+rpm -Uhv http://apt.sw.be/redhat/el5/en/i386/rpmforge/RPMS/rpmforge-release-0.3.6-1.el5.rf.i386.rpm
+Red Hat Enterprise Linux 5 / x86_64:
+rpm -Uhv http://apt.sw.be/redhat/el5/en/x86_64/rpmforge/RPMS//rpmforge-release-0.3.6-1.el5.rf.x86_64.rpm
+Red Hat Enterprise Linux 4 / i386:
+rpm -Uhv http://apt.sw.be/redhat/el4/en/i386/rpmforge/RPMS/rpmforge-release-0.3.6-1.el4.rf.i386.rpm
+Red Hat Enterprise Linux 4 / x86_64:
+rpm -Uhv http://apt.sw.be/redhat/el4/en/x86_64/rpmforge/RPMS/rpmforge-release-0.3.6-1.el4.rf.x86_64.rpm
+Red Hat Enterprise Linux 3 / i386:
+rpm -Uhv http://apt.sw.be/redhat/el3/en/i386/rpmforge/RPMS/rpmforge-release-0.3.6-1.el3.rf.i386.rpm
+Red Hat Enterprise Linux 3 / x86_64:
+rpm -Uhv http://apt.sw.be/redhat/el3/en/x86_64/rpmforge/RPMS/rpmforge-release-0.3.6-1.el3.rf.x86_64.rpm
+Red Hat Enterprise Linux 2 / i386:
+rpm -Uhv http://apt.sw.be/redhat/el2.1/en/i386/rpmforge/RPMS/rpmforge-release-0.3.6-1.el2.rf.i386.rpm
+Red Hat Linux 9 / i386:
+rpm -Uhv http://apt.sw.be/redhat/9/en/i386/rpmforge/RPMS/rpmforge-release-0.3.6-1.rh9.rf.i386.rpm
+Red Hat Linux 7.3 / i386:
+rpm -Uhv http://apt.sw.be/redhat/8.0/en/i386/rpmforge/RPMS/rpmforge-release-0.3.6-1.rh7.rf.i386.rpm
