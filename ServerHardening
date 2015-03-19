@@ -1,0 +1,242 @@
+All the work has been finished. Here is the cPanel Service Report of the work done:
+
+1. csf+lfd installed with IN and OUT going port blocking enabled. Configuration can be done within WHM > ConfigServer Security & Firewall
+
+Documentation: /etc/csf/readme.txt
+Website: http://www.configserver.com/cp/csf.html
+
+2. Running processes checked
+
+3. Checked system runlevel
+
+4. Stop unnecessary processes: none found
+
+5. Log Scanner has been enabled in /etc/csf/csf.conf and lfd will run hourly to email root log file summaries
+
+Documentation: Look under LOGSCANNER in /etc/csf/csf.conf
+
+6. Logwatch installed
+
+Documentation: /usr/share/doc/logwatch*/
+Website: http://www.logwatch.org
+
+7. cPanel/WHM configuration check - the WHM options have been checked and where necessary modified for security and stability. The most important ones are as follows:
+
+Set "WHM > Tweak Settings > Max hourly emails" - this limits any damage caused by spammers should they get onto the server through an exploit
+Enabled "WHM > Tweak Settings > Always redirect to SSL" - enables secure access through SSL for logins
+Enabled "WHM > Tweak Settings > Require SSL" - enables secure access through SSL for logins
+Disabled "WHM > Tweak Settings > Email password reset" - this option has been an exploit vector in the past and should not be trusted
+Enabled "WHM > PHP open_basedir Tweak" - this prevents users running php scripts from straying outside their own root directory (except for /tmp)
+Enabled "WHM > Apache mod_userdir Tweak" - this prevents users from stealing bandwidth or hackers hiding access to your servers through apache
+Disabled "WHM > Compiler Access" - this stops exploits from compiling code on you server
+"WHM > Change System Mail Preferences" - all these fields should be completed with an existing email address that is monitored
+Disabled "WHM > FTP Configuration > Anonymous FTP" - this is a typical vulnerable option used as an attack vector by hackers and should be disabled unless actively used
+Enable "WHM > Background Process Killer" - this kills off exploit processes such as IRC bots during the upcp nightly run
+Disabled "WHM > Tweak Settings > BoxTrapper spam trap" - it is trivial using this option to get your whole server listed on major RBL's. It also does nothing to combat spam overall and indeed adds to it
+Disabled "WHM > Tweak Settings > Proxy subdomains" - forces logins to be reported from remote host and not localhost due to proxy
+Disabled "WHM > Tweak Settings > Proxy subdomain creation" - forces logins to be reported from remote host and not localhost due to proxy
+Disabled "WHM > Tweak Settings > Hide login password from cgi scripts" - stops remote login password from being visible in environment variables
+Enabled "WHM > Shell Fork Bomb Protection" - this prevents poorly written scripts from consuming server resources and prevents local DOS attacks
+
+Disabled "WHM > Tweak Settings > Allow apps that have not registered with AppConfig to be run when logged in as a reseller to WHM." - If this breaks any plugins you need to contact the developer and have them fix it for cPanel AppConfig v2+ or re-enable this option
+Disabled "WHM > Tweak Settings > Allow apps that have not registered with AppConfig to be run when logged in as root or a reseller with the "all" ACL in WHM." - If this breaks any plugins you need to contact the developer and have them fix it for cPanel AppConfig v2+ or re-enable this option
+Disabled "WHM > Tweak Settings > This setting allows WHM applications and addons to execute even if an ACL list has not been defined." - If this breaks any plugins you need to contact the developer and have them fix it for cPanel AppConfig v2+ or re-enable this option
+Disabled "WHM > Tweak Settings > This setting allows cPanel and Webmail applications and addons to execute even if a feature list has not been defined." - If this breaks any plugins you need to contact the developer and have them fix it for cPanel AppConfig v2+ or re-enable this option
+
+Other options are modified as per the csf Security Check Report in "WHM > ConfigServer Security & Firewall > Check Server Security > WHM Settings Check"
+
+8. n/a
+
+9. OpenSSH configured to only use SSHv2 and not perform DNS lookups
+
+10. Rootkit Hunter installed and configured and a twice daily cron job created to email a report to root. Can be run manually with:
+/root/rkhunter.sh
+
+rkhunter does throw some false-positives, e.g.:
+
+Warning: The command '/sbin/ifdown' has been replaced by a script: /sbin/ifdown: Bourne-Again shell script text executable
+Warning: The command '/sbin/ifup' has been replaced by a script: /sbin/ifup: Bourne-Again shell script text executable
+Warning: The command '/usr/bin/GET' has been replaced by a script: /usr/bin/GET: a /usr/bin/perl -w script text executable
+Warning: The command '/usr/bin/ldd' has been replaced by a script: /usr/bin/ldd: Bourne-Again shell script text executable
+Warning: Checking for possible rootkit strings [ Warning ]
+Found string 'hdparm' in file '/etc/rc.d/rc.sysinit'. Possible rootkit: Xzibit Rootkit
+
+Website: http://rkhunter.sf.net
+
+11. Chkrootkit installed and configured. This will also run twice daily from a cron job to email a report to root. Can be run manually with:
+/root/chkrootkit.sh
+
+The following errors are false-positives and can be ignored:
+/proc/NNN/fd: No such file or directory
+/usr/lib/php/.registry
+INFECTED (PORTS: 465)
+
+For information on hidden processes/LKM detection, read here:
+http://www.configserver.com/techfaq/index.php?faqid=2
+
+Website: http://www.chkrootkit.org
+
+12. ModSecurity installed
+
+As of 22 October 2013, ASL has decided to no longer provide their delayed rulesets. We have included the last version of those rules. If you want to update these rules in the future, you will now have to consider paying ASL for their rules.
+
+Now that these rulesets have been discontinued, there is no support provided by ASL for them (we do not provide support for the rules).
+
+ConfigServer ModSecurity Control (cmc) has also been installed to WHM to allow you to whitelist false-positive mod_security rule ID's on a global, per user or per domain level
+
+Website: http://www.atomicorp.com/wiki/index.php/Atomic_ModSecurity_Rules
+Website: http://www.modsecurity.org
+Website: http://www.configserver.com/cp/cmc.html
+
+13. Tidy disk space: Done. The following applications will have been removed if installed to avoid conflicts with existing/new applications and/or are not required/desired on cPanel servers: apf, maldet, spri, bfd, prm, les, sim, lsm, nobody_check
+
+14. If necessary, switched to pure-ftpd
+
+15. Updates to /etc/sysctl.conf
+
+16. Added logrotation of cPanel and apache files to /etc/logrotate.d/
+
+17. Suhosin added only if PHP version is less than v5.3.*
+
+Website: http://www.hardened-php.net/suhosin/configuration.html
+
+18. Kernel: OK
+
+19. Check /tmp /dev/shm /var/tmp: OK
+
+20. Hard Disk check: OK
+
+21. Update Operating System check: OK
+
+22. Apache/PHP/MySQL check: MySQL upgraded to v5.6, Apache to v2.4.9
+
+23. MailScanner, MSFE (MailScanner Front-End), SpamAssassin, ClamAV, DCC, Vipuls Razor, ConfigServer Mail Queues have all been installed.
+
+SpamAssassin has been configured to work from within MailScanner instead of directly in cPanel. The server-wide bayesian SpamAssassin filtering has also been enabled - this does take some time to train itself but within a few days this can help greatly in positively identifying spam. If it was installed, clamavconnector in WHM > Addon Modules was removed - it is incompatible with MailScanner and will break MailScanner if you reinstall it.
+
+Configuration for MailScanner is controlled from the files within the directory:
+/usr/mailscanner/etc/
+
+The main configuration file in that directory is MailScanner.conf
+
+MailScanner has been configured with sensible options and to use rulesets which are stored in the rules/ subdirectory. The usual way is to tag the spam and still deliver it so that you can filter it yourself. You can change that action to delete if you definitely don't want it.
+
+Here is an online guide which we have written that you can duplicate for your users:
+http://www.configserver.com/mshelp/index.htm
+
+There is a utility for restarting MailScanner which must be done if any files within /usr/mailscanner/etc/ are changed:
+service MailScanner reload
+
+There is another utility that I've setup to run daily in the root crontab which checks /etc/localdomains and makes sure that there is an entry for any domain listed within the rules files:
+/usr/mscpanel/mscpanel.pl
+
+MailScanner has also been configured to use the checksum services DCC and Vipuls Razor. It is also configured to use Clam Anti Virus using the clamd daemon which speeds scanning and reduces server load. A MailScanner cron job which runs hourly will make sure that you have the latest virus definitions.
+
+MailScanner will scan on all the domains that you have on the server. SpamAssassin in cPanel has been disabled because it is not compatible when MailScanner is used to classify emails. MailScanner itself does run SpamAssassin and the MailScanner front-end accessible to users through cPanel provides their interface to configuration changes available for their domains . This does mean that the features within cPanel (e.g. the spambox and whitelist) no longer function, but are replaced by the front-end features that we have developed.
+
+All occurences of :blackhole: and /dev/null in /etc/valiases/* have been replaced with :fail: as this is what's needed to block dictionary attacks.
+
+The MailScanner front-end for cPanel has also been installed together with the latest version of MailWatch:
+http://www.configserver.com/cp/msfe.html
+
+You can upgrade MailScanner, MSFE (the front-end) and ClamAV in future through the WHM MailScanner interface.
+
+If necessary I have opened egress ports in your firewall for the checksum services:
+DCC - out-bound UDP port 6277
+DCC - out-bound TCP port 587 (for reporting spam)
+Razor - out-bound TCP port 2703
+
+Documentation: /usr/mailscanner/docs/
+Websites: http://www.mailscanner.info
+http://www.spamassassin.org
+http://www.clamav.net
+http://www.rulesemporium.com
+http://www.rhyolite.com/anti-spam/dcc/
+http://razor.sourceforge.net/
+http://www.configserver.com/free/fail.html
+
+Additional Information:
+ConfigServer Technical FAQ: http://www.configserver.com/techfaq/
+
+If you wish to keep up to date with the work performed here and other cPanel related information, we would recommend that you view (and subscribe via RSS) to our blog:
+ConfigServer Blog: http://www.configserver.com/blog/
+
+24. Host spoof protection by modifying /etc/host.conf
+
+25. Exploit check: None found - The full report is available in /root/scan.log, please note that not all entries in this log file are necessarily exploits.
+
+26. Perl installation check: OK
+
+27. Installed ConfigServer Explorer if requested
+
+Website: http://www.configserver.com/cp/cse.html
+
+28. Installed ConfigServer Mail Queues
+
+Website: http://www.configserver.com/cp/cmq.html
+
+29. Installed ConfigServer Mail Manage
+
+Website: http://www.configserver.com/cp/cmm.html
+
+30. Delete unnecessary OS users: Done
+
+31. Enhanced path protection: Done
+
+32. PHP Hardening: Done
+
+Users will now no longer be able to use Dynamic Libraries in PHP (e.g. ioncube) which will now have to be loaded from within the servers main configuration file /usr/local/lib/php.ini. If you need to allow dynamic libraries other than those offered by cPanel then you will need to edit the php.ini file and set enable_dl to On and then restart httpd
+
+The following functions have been disabled:
+disable_functions = show_source, system, shell_exec, passthru, exec, popen, proc_open, allow_url_fopen
+
+You may need to re-enable some of these if they break php applications by editing /usr/local/lib/php.ini and removing them from disable_functions and then restarting httpd
+
+If suPHP is enabled, /opt/suphp/etc/suphp.conf was edited and the options under [phprc_paths] uncommented to disable local php.ini files. You will have to reverse this if you want to allow local php.ini files
+
+33. MySQL and Apache tuning: Done
+
+34. Remove SUID/GUID from binaries if not required: Done
+
+35. DNS open resolver: Checked and closed if necessary
+
+36. Installed ConfigServer eXploit Scanner:
+
+Configured cxs to use the cxs Watch Daemon and email root on exception
+
+Configured cxs to quarantine Viruses and Fingerprint matches to /home/quarantine
+
+Configured cxs to email root on exception via mod_security (see /etc/cxs/cxscgi.sh)
+Configured cxs to email root on exception via pure-ftpd (see /etc/cxs/cxsftp.sh)
+
+Configured cron job to update cxs and clean the quarantine directory: /etc/cron.daily/cxsdaily.sh
+
+We recommend that you read through the cxs documentation, in particular the RECOMMENDATIONS section of the documentation (from "cxs --help" or "WHM > ConfigServer eXploit Scanner > Documentation")
+
+To run a comprehensive scan and quarantine known fingerprint matches and viruses, you may wish to use this cxs command:
+
+/usr/sbin/cxs --report /root/scan.log --mail root --virusscan --voptions fmMhexT --quarantine /home/quarantine --qoptions Mv --ignore /etc/cxs/cxs.ignore --options OLfmMChexdDZRP --all
+
+(The above command should all be on one line.)
+
+Please note we strongly recommend that you use quarantine ONLY for Fingerprint and Virus matches, as other types of matches will give false positives.
+
+Please note that we have not set up a scheduled daily scan which you can do via crontab.
+
+Documentation: /etc/cxs/install.txt /etc/cxs/reference.txt
+Documentation: "perldoc cxs" or "cxs --help" or "WHM > ConfigServer eXploit Scanner > Documentation"
+Documentation: http://www.configserver.com/techfaq/faqlist.php?catid=9
+Documentation: http://forum.configserver.com/viewforum.php?f=26
+Website: http://www.configserver.com/cp/cxs.html
+
+
+This package includes one week of informational support requests regarding any item of server management or cPanel configuration (any work that requires login usually attracts the hourly General Server Administration rate). After this time, our General Server Administration rate for any issues may apply.
+
+Additional Information:
+ConfigServer Technical FAQ: http://www.configserver.com/techfaq/
+ConfigServer Scripts Forum: http://forum.configserver.com/
+
+A backup of most of the configuration files that may have been changed during this work has been created in /usr/src/conf_DATE/
+
+
+
