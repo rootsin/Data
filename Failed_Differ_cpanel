@@ -1,0 +1,33 @@
+Question:
+The "per hour" means any period of 60 minutes (Eg: if current time is 13:15, then hour = 13:15 to 14:15) 
+-or-
+does it mean the current ongoing hour. (Eg: if current time is 13:15, then hour = 13:00 to 14:00)
+Answer:
+Seth Daughenbaug:
+The "per hour" means "in the past 60 minutes". When a defer or failure happens, if there are additional failures in the past 60 minutes, +1 is added to this count.
+
+Lets say you are trying to send out 60 emails, one each minute. 
+
+If the first 5 emails go through without an error, then the next one fails, that would be the first failure. So, in the first 6 minutes, you have 1 failure. 
+
+The next 10 emails go through fine, 
+
+but then 4 emails after that fail. At this point, you have reached the 5 failure limit. 
+At this point, it has been 20 minutes all together. However, the first failure was 6 minutes in. 
+
+The domain sending out the emails would not be able to send any further email until an hour has past since the first failure. In this cause, you would need to wait 46 minutes to send another email, as the first failure would drop off at that point, leaving you with 4 failures in the past hour. I hope this makes sense.
+Question: What does the (5/5) really mean? Does it mean that every 5 messages are being checked? Can this limit be increased?
+
+One of my users is getting the error: Domain has exceeded the max defers and failures per hour (9/5 (75%)) allowed. Message discarded.
+Answer:
+Brian Dial:
+
+Percentage counts do not start until there have been 5 defers or failures. This is what the (x/5) is indicating in the logs. The measurement of defers and failures kicks in once 5 defers or failures have occurred.
+
+As an example, if a user sends out 9 emails and three of them are deferred, you should see a (3/5) in the logs. If you have a 25% threshold on suspending email sending, even though 33% of this user's messages have bounced, that user will still be able to send email because 5 messages haven't bounced yet. The percentage of failures kicks in after 5 total failures.
+
+In your latest example, (9/5) is just showing you the total number of failures for that user, which is 9. Five is just threshold at which the percentage of tallying starts. The 75% indicates that 75% of this user's messages have failed. From this we can determine that the user has sent 12 total messages, and 9 of them (75%) have failed or been deferred.
+
+Currently the only measurement to base these restrictions on is a percentage of failed messages. There is no way to set this to a specific number of messages, as it is based entirely on a percentage of mail sent per user.
+
+I hope this clears some things up. If not, please post back and I will be happy to elaborate.
