@@ -3121,3 +3121,13 @@ No of connectiosn per IP
 
 netstat -atun | awk '{print $5}' | cut -d: -f1 | sed -e '/^$/d' |sort | uniq -c | sort -n
 
+Load check logs...
+============
+Here are some logs to check:
+
+syslogs: /var/log/messages, /var/log/secure
+SMTP logs: /var/log/exim_mainlog, /var/log/exim_rejectlog, /var/log/exim_paniclog
+POP3/IMAP logs: /var/log/maillog
+Apache logs: /usr/local/apache/logs/access_log, /usr/local/apache/logs/error_log, /usr/local/apache/logs/suexec_log, /usr/local/apache/logs/suphp_log
+Website logs: /usr/local/apache/domlogs/ (use this to find sites with traffic in the last 60 seconds: find -maxdepth 1 -type f -mmin -1 | egrep -v 'offset|_log$')
+cron logs: /var/log/cron
