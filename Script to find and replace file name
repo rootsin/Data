@@ -1,0 +1,13 @@
+Script to find and replace
+
+#!/bin/bash
+
+i="/lx24/testuser.txt"
+
+for j in `cat $i` ; do
+
+cd /home/$j/public_html/
+
+find . -name "index.htm" -print | xargs rename index.htm index.htm-bk
+
+done
