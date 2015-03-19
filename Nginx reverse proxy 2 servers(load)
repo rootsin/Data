@@ -1,0 +1,108 @@
+http://www.cyberciti.biz/tips/using-nginx-as-reverse-proxy.html
+
+
+[nginx]
+name=nginx repo
+baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
+gpgcheck=0
+enabled=1
+
+/conf.d/default.conf
+
+---------
+upstream test {
+          server 184.172.132.226:80; 		  
+        }
+upstream test1 {
+          server 107.6.45.60:80;  
+        }
+
+server {
+    listen  204.14.86.218:80;
+    server_name  *.com, www.*.com;
+
+    location / {
+     proxy_pass  http://test;
+     proxy_next_upstream error timeout invalid_header http_500 http_502 http_503 http_504;
+     proxy_redirect off;
+     proxy_buffering off;
+     proxy_set_header        Host            $host;
+     proxy_set_header        X-Real-IP       $remote_addr;
+     proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+}
+
+server {
+    listen  204.14.86.219:80;
+    server_name  *.com, www.*.com;
+
+     location / {
+     proxy_pass  http://test1;
+     proxy_next_upstream error timeout invalid_header http_500 http_502 http_503 http_504;
+     proxy_redirect off;
+     proxy_buffering off;
+     proxy_set_header        Host            $host;
+     proxy_set_header        X-Real-IP       $remote_addr;
+     proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+
+
+}
+---------
+
+Nginx.conf
+
+-----------
+user  nginx;
+worker_processes  1;
+error_log  /var/log/nginx_error.log crit;
+
+worker_rlimit_nofile  8192;
+
+events {
+worker_connections  1024; # you might need to increase this setting for busy servers
+use epoll; #  Linux kernels 2.6.x change to epoll
+}
+
+http {
+server_names_hash_max_size 2048;
+server_names_hash_bucket_size 512;
+
+server_tokens off;
+
+include    mime.types;
+default_type  application/octet-stream;
+
+sendfile on;
+tcp_nopush on;
+tcp_nodelay on;
+keepalive_timeout  10;
+
+# Gzip on
+gzip on;
+gzip_min_length  1100;
+gzip_buffers  4 32k;
+gzip_types    text/plain application/x-javascript text/xml text/css;
+
+ignore_invalid_headers on;
+client_max_body_size    8m;
+client_header_timeout  3m;
+client_body_timeout 3m;
+send_timeout     3m;
+connection_pool_size  256;
+client_header_buffer_size 4k;
+large_client_header_buffers 4 64k;
+request_pool_size  4k;
+output_buffers   4 32k;
+postpone_output  1460;
+
+# Cache most accessed static files
+open_file_cache          max=10000 inactive=10m;
+open_file_cache_valid    2m;
+open_file_cache_min_uses 1;
+open_file_cache_errors   on;
+
+# Include each virtual host
+include "/etc/nginx/conf.d/*.conf";
+}
+---------
