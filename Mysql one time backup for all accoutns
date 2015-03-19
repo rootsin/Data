@@ -1,0 +1,20 @@
+#!/bin/bash
+baksrc=/var/lib/mysql
+bakdst=/backup/mysqlbackup/daily
+dumpdb=/usr/bin/mysqldump
+
+ls -lhd  $baksrc/*_* | awk '{print $9}' | cut -d/ -f5  > /root/mysqldd-list
+
+for db in `cat /root/mysqldd-list` ;
+do
+$dumpdb $db > $bakdst/$db.sql  2> $bakdst/error.log
+done
+$dumpdb  mysql > $bakdst/mysql.sql 2> $bakdst/error.log
+
+echo " All Databases backup up successfully to folder $bakdst/ "
+echo " Check for any errors at : $bakdst/error.log "
+echo " ........... Successfully Done .........."
+ls -lah $bakdst/ > $bakdst/list.txt
+$bakdst/error.log >> $bakdst/list.txt
+
+exit 0
