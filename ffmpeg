@@ -1,0 +1,138 @@
+Follow this URL:
+
+https://trac.ffmpeg.org/wiki/CentosCompilationGuide
+
+==================
+or below:
+
+which ruby
+
+
+/scripts/installruby
+
+
+cd /usr/local/src
+ll
+wget http://sourceforge.net/projects/lame/files/lame/3.98.4/lame-3.98.4.tar.gz/download
+tar -xvzf lame-3.98.4.tar.gz
+cd lame-3.98.4
+./configure
+make
+make install
+cd ..
+wget http://rubyforge.org/frs/download.php/17497/flvtool2-1.0.6.tgz
+tar -xvzf flvtool2-1.0.6.tgz
+cd flvtool2-1.0.6
+ruby setup.rb config
+ruby setup.rb setup
+ruby setup.rb install
+cd ..
+wget http://downloads.xiph.org/releases/ogg/libogg-1.1.3.tar.gz
+tar -xvzf libogg-1.1.3.tar.gz
+cd libogg-1.1.3
+./configure
+make
+make install
+cd ..
+wget http://downloads.xiph.org/releases/vorbis/libvorbis-1.2.0.tar.gz
+tar -xvzf libvorbis-1.2.0.tar.gz
+cd libvorbis-1.2.0
+./configure
+make
+make install
+cd ..
+
+yum list subversion
+
+yum install subversion
+
+csf -l
+
+csf -x
+
+svn checkout svn://svn.mplayerhq.hu/ffmpeg/trunk ffmpeg
+cd ffmpeg/
+ll
+mount -o remount exec /tmp
+./configure --enable-libmp3lame --enable-gpl  --enable-libvorbis --disable-mmx --enable-shared --extra-ldflags=-L/c/dev/shared/lib --extra-cflags=-I//usr/local/lib/ --enable-swscale
+make
+make install
+cd ..
+wget http://www.mplayerhq.hu/MPlayer/releases/MPlayer-1.1.tar.gz
+wget http://www.tortall.net/projects/yasm/releases/yasm-1.1.0.tar.gz
+tar -xvzf yasm-1.1.0.tar.gz
+cd yasm-1.1.0
+./configure
+make
+make install
+cd ..
+tar -xvzf MPlayer-1.1.tar.gz
+cd MPlayer-1.1
+./configure
+make
+make install
+cd ..
+ffmpeg
+ldconfig
+ffmpeg
+svn co https://ffmpeg-php.svn.sourceforge.net/svnroot/ffmpeg-php
+cd ffmpeg-php/
+ll
+cd branches/ffmpeg-php/
+ll
+cd ffmpeg-php-0.6.1/
+phpize
+./configure
+make
+echo $?
+make test
+make install
+ll usr/local/lib/php/extensions/no-debug-non-zts-20060613
+
+vi /usr/local/lib/php.ini
+
+cd
+service httpd restart
+php --ri ffmpeg
+ffmpeg
+which ffmpeg
+which mencoder
+which mplayer
+which flvtool2
+which lame
+whereis libogg
+whereis libvorbis
+
+
+ 900  wget ftp://ftp6.nero.com/tools/NeroDigitalAudio.zip
+  901  unzip NeroDigitalAudio.zip
+  902  ll
+  903  cd linux/
+  904  ll
+  905  install -D -m755 neroAacEnc /usr/local/bin
+  906  echo $?
+  907  which neroAacEnc
+  908  cd
+  909  which neroAacEnc
+  910  cd -
+  911  cd ..
+  913  wget http://downloads.sourceforge.net/zenlib/wxGTK-2.8.12-1.x86_64.CentOS_6.rpm
+  914  wget http://mediaarea.net/download/binary/libzen0/0.4.28/libzen0-0.4.28-1.i386.CentOS_5.rpm
+  915  wget http://mediaarea.net/download/binary/libmediainfo0/0.7.61/libmediainfo0-0.7.61-1.x86_64.CentOS_6.rpm
+  916  wget http://mediaarea.net/download/binary/mediainfo/0.7.61/mediainfo-0.7.61-1.x86_64.CentOS_6.rpm
+  917  wget http://mediaarea.net/download/binary/mediainfo-gui/0.7.61/mediainfo-gui-0.7.61-1.x86_64.CentOS_6.rpm
+  918  ll
+  919  ll | grep rpm
+  920  rpm -ivh *.rpm
+  921  rpm -ivh wxGTK-2.8.12-1.x86_64.CentOS_6.rpm
+  922  rpm -ivh libzen0-0.4.28-1.i386.CentOS_5.rpm
+  923  yum install libzen0-0.4.28-1.i386.CentOS_5.rpm
+  925  rpm -ivh libmediainfo0-0.7.61-1.x86_64.CentOS_6.rpm
+  929  rpm -ivh libmediainfo0-0.7.61-1.x86_64.CentOS_6.rpm --nodeps
+  931  rpm -ivh mediainfo-0.7.61-1.x86_64.CentOS_6.rpm --nodeps
+  932  rpm -ivh mediainfo-gui-0.7.61-1.x86_64.CentOS_6.rpm
+  933  rpm -ivh mediainfo-gui-0.7.61-1.x86_64.CentOS_6.rpm  --nodeps
+  934  cd
+  935  which mediainfo
+  936  history
+root@sb1 [~]#
