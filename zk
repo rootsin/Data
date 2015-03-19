@@ -1,0 +1,47 @@
+Fix cpanel permissions
+=========================
+
+for CPAccess in `ls -A /var/cpanel/users`; do chown -R $CPAccess:$CPAccess /home/$CPAccess; done
+
+for CPAccess in `ls -A /var/cpanel/users`; do chown -R $CPAccess:mail /home/$CPAccess/etc /home/$CPAccess/mail; done
+
+for CPAccess in `ls -A /var/cpanel/users`; do chown -R $CPAccess:nobody /home/$CPAccess/public_html; done
+
+Mail ip reroute with IPtables
+===============
+SMTP will send out on the servers main IP address by default. You can change that behaviour in exim modifying the interface option. Unfortunately, that needs direct editing of exim.conf which will be overwritten when exim is next updated. You can also achieve the same thing by editing /etc/init.d/exim and setting the command line startup argument. Again this file will be overwritten.
+
+A third option would be to use iptables to reroute the SMTP request. This is probably simplest:
+
+iptables -t nat -A POSTROUTING -o eth0 -p tcp -j SNAT --dport 25 --to-source 11.22.33.44
+
+Where 11.22.33.44 is the IP address you want to send out on. Change eth0 if you need to for your servers configuration.
+
+If you want to flush the nat table, use:
+
+iptables -t nat -F
+
+ref link:http://forums.cpanel.net/f43/routing-outbound-smtp-through-another-server-111537.html
+
+
+Sudo permissions
+====================
+Defaults:nagios !requiretty
+to the /etc/sudoers
+
+Customize shell
+======
+add to bash_profile
+
+PS1="[\u@\ h \w]\\$"
+
+
+IPtables
+------------
+iptables -A INPUT -s 85.133.194.220  -j ACCEPT 
+iptables -A INPUT -p tcp --dport 995 -j DROP
+
+
+Rsync
+=========
+rsync -avz --rsh='ssh -p2445' /home/$i/etc/ IP:/home/$i/etc/
