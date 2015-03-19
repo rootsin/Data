@@ -1,0 +1,20 @@
+  573  df -h
+  574  free -m
+  575  fdisk -l
+  576  vi /scripts/securetmp
+  577  /etc/init.d/cpanel stop
+  578  /etc/init.d/httpd stop
+  579  /etc/init.d/mysql stop
+  580  mount
+  581  umount -l /tmp
+  582  umount -l /var/tmp
+  583  mv /usr/tmpDSK /usr/tmpDSK_back
+  584  /scripts/securetmp
+  585  /etc/init.d/cpanel start
+  586  /etc/init.d/httpd start
+  587  /etc/init.d/mysql start
+  588  df -h
+  589  ll /tmp
+  590  /etc/init.d/mysql restart
+  591  ll /tmp
+  592  history
