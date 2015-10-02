@@ -1,0 +1,9 @@
+
+find `pwd` -type f -iname '*.php' -exec echo {} \; -exec head -1 {} \; |grep -B1 'GLOBALS\|preg_replace\|array_diff_ukey\|gzuncompress\|gzinflate\|post_var'
+
+With that command you would go into the infected cpanel accounts public_html and it will list all the files that contain more than likely malicious code on the first line. 
+
+The most common files you will find, for me anyways, are found using this:
+
+for i in USER; do find /home/$i/public_html/ -type f -iname '*.php' | xargs grep -l 'sF=\|qV=' >> infected ; done
+
