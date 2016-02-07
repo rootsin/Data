@@ -1,0 +1,9 @@
+create ftp user to edit /var/www/html
+
+useradd demo
+passwd demo
+
+usermod -a -G apache demo   (add user to apache group)
+
+chmod -R g+w /var/www/html
+chmod g+s /var/www/html
