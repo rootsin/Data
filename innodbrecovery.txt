@@ -1,0 +1,76 @@
+If this machine is a Linux VPS with MySQL database corruption the fastest way to get this server online is to re-provision it and restore from your backups.
+
+It is possible to recover from MySQL corruption using the following process. This is not a guaranteed fix but if the databases are recoverable this process will allow that.
+
+    Open the /etc/my.cnf file (MySQL’s config file)
+    It should look similar to this (however options may vary)
+
+    [mysqld]
+     innodb_file_per_table=1
+     open_files_limit=2164
+     max_allowed_packet=268435456
+
+    Add this line to the end:
+
+    innodb_force_recovery = 1
+
+    Try starting MySQL again.
+
+    If it fails, change the line you added to my.cnf to:
+
+    innodb_force_recovery = 2
+    Try restarting MySQL again.
+    If it still fails, change the line you added to my.cnf to:
+
+    innodb_force_recovery = 3
+
+    You can keep going up to 6 if needed however this should be a last resort as anything over 3 can cause data los
+    As soon as you get MySQL started, take a full backup of your databases. MySQL is now is read only recovery mode so your sites may not be online but you should take a copy of your data as soon as possible
+    To take full backups, run this command from the command line:
+
+    # mysqldump --all-databases --lock-tables --compress --routines --comments --extended-insert > new_all_databases.sql
+
+    log in as the root MySQL user, check the DB, exit, stop MySQL and remove the “innodb_force_recovery = […]” line from my.cnf.
+    Start MySQL one more time. It should now be running normally
+    You may need to repair corrupted tables using the following method:-
+
+    mysql> USE databasename;
+     mysql> REPAIR TABLE `table1` , `table2`;
+
+    The above should work for you and will allow MySQL to start and run however once you do this get this started. There is more information regarding this here: http://dev.mysql.com/doc/refman/5.5/en/forcing-innodb-recovery.html
+
+If the above method is unsuccessful, the below method may prove successful:
+
+    Add the following lines to /etc/my.cnf  – this will prevent the need for a password and set the database into recovery mode:
+
+    skip-grant-tables
+
+    innodb_force_recovery = 3
+
+    Next, attempt to start MySQL in read only recovery mode using the following commands:
+
+    [root@vps ~]# mysql_upgrade --force
+
+    [root@vps ~]# service mysql restart
+
+    Dump your existing databases using:
+
+    [root@vps ~]# mysqldump --all-databases --lock-tables --compress --routines --comments --extended-insert > /backups/new_all_databases.sql
+
+    Stop MySQL and move the corrupt /var/lib/mysql folder:
+
+    [root@vps ~]# service mysql stop
+
+    [root@vps ~]# mv /var/lib/mysql /var/lib/mysql_bak
+
+    Add this comment to /et/my.cnf:
+
+    #skip-grant-tables
+
+    Restart MySQL:
+
+    [root@vps ~]# service mysqld restart
+
+ 
+
+The above guide should correct any issues, however if the above fails to work or if you may need to restore from your backups.
